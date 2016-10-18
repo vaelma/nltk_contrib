@@ -6,14 +6,6 @@ import string
 import os
 import sys
 
-# Requires eGenix.com mx Base Distribution
-# http://www.egenix.com/products/python/mxBase/
-try:
-    from mx.DateTime import *
-except ImportError:
-    print """
-Requires eGenix.com mx Base Distribution
-http://www.egenix.com/products/python/mxBase/"""
 
 # Predefined strings.
 numbers = "(^a(?=\s)|one|two|three|four|five|six|seven|eight|nine|ten| \
@@ -191,7 +183,7 @@ def ground(tagged_text, base_date):
             unit = split_timex[1]
             num_list = map(lambda s:hashnum(s),re.findall(numbers + '+', \
                                           value, re.IGNORECASE))
-            timex = `sum(num_list)` + ' ' + unit
+            timex = repr(sum(num_list)) + ' ' + unit
 
         # If timex matches ISO format, remove 'time' and reorder 'date'
         if re.match(r'\d+[/-]\d+[/-]\d+ \d+:\d+:\d+\.\d+', timex):
@@ -351,7 +343,7 @@ def ground(tagged_text, base_date):
 def demo():
     import nltk
     text = nltk.corpus.abc.raw('rural.txt')[:10000]
-    print tag(text)
+    print(tag(text))
 
 if __name__ == '__main__':
     demo()
